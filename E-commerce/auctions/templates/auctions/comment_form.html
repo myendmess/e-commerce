@@ -1,0 +1,15 @@
+<div class="comment-form-wrapper">
+    <hr>
+    <h3>Leave a comment</h3>
+
+    <form action="{{ listing.id }}/add_comment" method="post">
+        {% csrf_token %} 
+        <div class="mb-3">
+            <input type="text" id="title" name="title" class="form-control" placeholder="Title">
+        </div>
+        <div class="mb-3">
+            <textarea id="content" name="content" placeholder="Comment content here" class="form-control"></textarea>
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary btn-sm">
+    </form>
+</div>

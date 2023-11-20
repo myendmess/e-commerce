@@ -1,0 +1,7 @@
+<form action="/listings/{{ listing.id }}/add_bid" method="post" class="input-group mb-3">
+    {% csrf_token %} 
+    <span class="input-group-text">$</span>
+    <input id="price" type="text" name="price" placeholder="New bid: 0.00" class="form-control">
+
+    <input type="submit" value="Place bid" class="btn btn-primary btn-sm">
+</form>

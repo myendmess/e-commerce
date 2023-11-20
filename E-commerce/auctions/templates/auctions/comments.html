@@ -1,0 +1,17 @@
+<div class="comments-wrapper">
+    <hr>
+    <h3>Comments</h3>
+        <div>
+            {% for comment in comments %}
+                <div> 
+                    <h7 class="comment-title">{{ comment.title }}</h7>
+                    <p>Content: {{ comment.content }}</p>     
+                    <p class="detail-create">Created by <b>{{ comment.commenter}}</b> at {{ comment.comment_time }}</p>
+                </div>
+            {% empty %}
+                <p>No comment yet...</p>
+            {% endfor %}
+        </div>
+</div>
+
+

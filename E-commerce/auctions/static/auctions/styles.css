@@ -1,0 +1,123 @@
+:root {
+    --lg-pad: 60px;
+    --bg-pad: 40px;
+    --md-pad: 20px;
+    --sm-pad: 5px;
+    --prim-blue: #007BFF;
+    --prim-red: #DC3545;
+    --prim-green: #28A745;
+}
+
+body {
+    padding: var(--md-pad);
+}
+
+
+/* index */
+
+.layout-flex-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.listings-wrapper {
+    padding: var(--bg-pad);
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: var(--md-pad);
+}
+
+.listing-title-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.listing-title-wrapper h3 {
+    margin-right: var(--sm-pad);
+}
+
+.info-wrapper {
+    padding-left: var(--md-pad);
+} 
+
+.info-wrapper a {
+    color: black;
+}
+
+.price {
+    font-weight: bold;
+    margin-top: var(--md-pad);
+}
+
+.create {
+    color: gray;
+    font-size: small;
+}
+
+
+/* One Listing */
+.listing-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-top {
+    display: flex;
+    padding: var(--md-pad);
+}
+/* 
+.listing-bottom {
+
+}
+*/
+/* 
+.listing-left-wrapper {
+    
+}
+*/
+
+/* .listing-right-wrapper {
+    
+} */
+
+/* .listing-details {
+  
+} */
+
+.detail-price {
+    font-weight: bold;
+}
+
+.detail-category {
+    color: var(--prim-blue);
+    font-style: italic;
+}
+
+.detail-create {
+    color: gray;
+    font-size: small;
+    
+}
+
+.comment-form-wrapper {
+    margin-top: var(--md-pad);
+}
+
+.comments-wrapper {
+    margin-top: var(--md-pad);
+}
+
+.btn-wrapper-auction-manip {
+    display: block;   
+
+}
+
+.winner {
+    color: var(--prim-green);
+}
+
+.comment-title {
+    font-weight: bold;
+    display: list-item;
+    list-style-position: inside;
+}

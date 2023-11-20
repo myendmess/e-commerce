@@ -1,0 +1,20 @@
+<div>
+    {% for listing in listings %}
+      <div class="listings-wrapper bg-light row">
+        <div class="col-2">
+          {% if listing.img_url %}
+            <img src="{{ listing.img_url }}" alt="{{ listing.title }}" class="img-fluid img-thumbnail">
+          {% else %}
+            <img src="http://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png" alt="No image available" class="img-fluid img-thumbnail">
+          {% endif %}
+        </div>
+        <div class="info-wrapper col-10">
+          <h4><a href="listings/{{ listing.id }}">{{ listing.title }}</a></h4>
+          <p>{{ listing.description }}</p>
+          <p class="price">Price: ${{ listing.starting_bid }}</p>
+          <p class="create">Created {{ listing.list_create_time }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  

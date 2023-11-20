@@ -1,0 +1,128 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    {{ listing.title }}
+{% endblock %}
+
+{% block body %}
+<div class="listing-wrapper">
+    <div class="listing-top row bg-light">
+        <div class="listing-left-wrapper col-2">
+            {% if listing.img_url %}
+                <img src="{{ listing.img_url }}" alt="{{ listing.title }}" class="img-fluid img-thumbnail">
+            {% else %}
+                <img src="http://www.staticwhich.co.uk/static/images/products/no-image/no-image-available.png" alt="No image" class="img-fluid img-thumbnail">
+            {% endif %}
+        </div>
+        
+        <div class="listing-right-wrapper col-10">
+            <div class="listing-title-wrapper">
+                <h3>{{ listing.title }}</h3>
+            
+                {% if user.is_authenticated %}
+                    {% if has_watchlist %}
+                        <form action="/listings/{{ listing.id }}/remove_watchlist" method="post">
+                            {% csrf_token %} 
+                            <input type="submit" value="♡" class="btn btn-primary btn-sm">
+                        </form>
+                    {% else %}
+                        <form action="/listings/{{ listing.id }}/add_watchlist" method="post">
+                            {% csrf_token %} 
+                            <input type="submit" value="♡" class="btn btn-outline-primary btn-sm">   
+                        </form> 
+                    {% endif %}
+                {% endif %}
+            </div>
+            
+            <hr>
+            <div class="listing-details">
+                <p>{{listing.description }}</p>
+                <p class="detail-price">Price: ${{ listing.starting_bid }}</p>
+                {% if listing.category %}
+                    <p class="detail-category">Category: {{ listing.category.name }}</p>
+                {% else %}
+                    <p class="detail-category">Category: blank</p>
+                {% endif %}
+                <p class="detail-create">Created by <b>{{ listing.author }}</b> at {{ listing.list_create_time }}</p>
+            </div>
+    
+            <div class="btn-wrapper-auction-manip">
+                {% if user.is_authenticated %}
+                    
+                    {% if active %} 
+                        {% if listing.author == user %}
+                        <form action="/listings/{{ listing.id }}/close_listing" method="post" class="btn-auction-manip">
+                            {% csrf_token %}
+                            <input type="submit" value="Close auction" class="btn btn-success btn-sm">
+                        </form>
+                        {% endif %}
+                    {% else %}
+                        {% if top_bid %}
+                        <div>
+                            <p class="winner">Auction closed. The winner is <b>{{ top_bid.bidder }}</b>, congratulations!</p>
+                        </div>
+                        {% endif %}
+                        
+                        {% if listing.author == user %}
+                        <form action="/listings/{{ listing.id }}/reopen_listing" method="post" class="btn-auction-manip">
+                            {% csrf_token %}
+                            <input type="submit" value="Reopen auction" class="btn btn-outline-success btn-sm">
+                        </form>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
+                {% if top_bid %}
+                    {% if top_bid.bidder == user %} 
+                        {% if active %}  
+                            <p>It seems like you are winning! Current top bid is yours: <b>${{ top_bid.price }}.</b></p>
+                            {% if user != listing.author %}
+                                {% include "auctions/bid_form.html" %}
+                            {% endif %}
+                        {% endif %}               
+                    {% else %}
+                        {% if active %}  
+                            <p>Current top bid is: <b>${{ top_bid.price }}.</b></p>
+                            {% if user != listing.author %}
+                                {% include "auctions/bid_form.html" %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% if active %}  
+                        <p>No bid yet.</p>
+                        {% if user != listing.author %}
+                            {% include "auctions/bid_form.html" %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %} 
+            {% endif %}
+    
+            
+            {% if error == 'invalid_bid' %}
+                <div class="alert alert-danger" role="alert">Couldn't submit your bid because it was bad!</div>
+            {% endif %}
+
+            
+        </div>
+    </div>
+
+    <div class="listing-bottom">
+        <div>
+            {% if user.is_authenticated %}
+                <div>
+                    {% include "auctions/comment_form.html" %}
+                </div>
+            {% endif %}
+        </div>  
+     
+        <div>
+            {% include "auctions/comments.html" %}
+        </div>
+    </div>        
+</div>
+
+
+{% endblock %}
